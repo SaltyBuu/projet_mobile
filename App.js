@@ -1,21 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableWithoutFeedback, ActivityIndicator, Platform } from 'react-native';
+import { useDeviceOrientation, useDimensions } from '@react-native-community/hooks'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+//import { Client, Message } from 'react-native-paho-mqtt';
+//import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function App() {
+  const handlePress = () => console.log("text pressed");
+  const orientation = useDeviceOrientation();
+  console.log(StatusBar.currentHeight)
+
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+    <SafeAreaView style={styles.container}>
+      <View style={styles.bandeSup}>
+        
+        <Text style={styles.titre} onPress={handlePress}> Graphiques serveurs</Text>
+
+      </View>
+      <View >
+        <View style={styles.rubriques}>
+          <Text>
+            Ram
+          </Text>
+          <Text>
+            CPU Usage
+          </Text>
+          <Text>
+            CPU Temp
+          </Text>
+          <Text>
+            Disk Storage
+          </Text>
+        </View>
+      </View>
+      {/* <Text numberOfLines={2} onPress={handlePress}>mtn faut coder lol</Text> */}
+      {/* <StatusBar style="auto" /> */}
+    </SafeAreaView>
+
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
+  bandeSup: {
+    backgroundColor: '#63003c',
+    width: '100%',
+    //flex: 1,
+    textAlign: 'center'
+  },
+  titre: {
+    color: 'white',
+    display: 'flex',
+    textAlign: 'center',
+    fontSize: 20
+  },
+  rubriques: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    textAlign: 'center',
+    borderRadius: 1,
+    borderColor: '#63003c'
+  }
+
 });
+
+
