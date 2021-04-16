@@ -16,8 +16,7 @@ export default function App() {
     
     <SafeAreaView style={styles.container}>
       <View style={styles.bandeSup}>
-        
-        <Text style={styles.titre} onPress={handlePress}> Graphiques serveurs</Text>
+          <Text style={styles.titre} onPress={handlePress}> Graphiques serveurs</Text>
 
       </View>
       <View >
@@ -55,8 +54,10 @@ const styles = StyleSheet.create({
   bandeSup: {
     backgroundColor: '#63003c',
     width: '100%',
+    height: '25%',
     //flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   titre: {
     color: 'white',
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     textAlign: 'center',
-    borderRadius: 1,
+    borderRadius: 4,
     borderColor: '#63003c'
   }
 
