@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     textAlign: 'center',
-    borderRadius: 4,
+    borderRadius: 2,
     borderColor: '#63003c'
   }
 
