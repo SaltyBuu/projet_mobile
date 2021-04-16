@@ -22,7 +22,7 @@ export default function App() {
       <View >
         <View style={styles.rubriques}>
           <Text>
-            Ram
+            Ram bleui
           </Text>
           <Text>
             CPU Usage
