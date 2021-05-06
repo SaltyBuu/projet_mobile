@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableWithoutFeedback, ActivityIndicator, Platform } from 'react-native';
 import { useDeviceOrientation, useDimensions } from '@react-native-community/hooks'
+import { Icon } from 'react-native-elements'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 //import { Client, Message } from 'react-native-paho-mqtt';
 //import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -16,25 +17,49 @@ export default function App() {
     
     <SafeAreaView style={styles.container}>
       <View style={styles.bandeSup}>
+          <Icon 
+          name='chevron-left'
+          type='feather'
+          color='white'
+          />
+
           <Text style={styles.titre} onPress={handlePress}> Graphiques serveurs</Text>
 
-      </View>
-      <View >
-        <View style={styles.rubriques}>
-          <Text>
-            Ram
-          </Text>
+          <Icon
+          name='menu'
+          type='feather'
+          color='white'
+          />
+          
+      </View >
+      
+      
+        <View style={styles.MainRubriques}>
+          <View style={styles.rubriques} >
+            <Text>
+              Ram
+            </Text>
+          </View>
+
+          <View style={styles.rubriques}>
           <Text>
             CPU Usage
           </Text>
+          </View>
+
+          <View style={styles.rubriques}>
           <Text>
             CPU Temp
           </Text>
+          </View>
+          
+          <View style={styles.rubriques}>
           <Text>
             Disk Storage
           </Text>
+          </View>
         </View>
-      </View>
+      
       {/* <Text numberOfLines={2} onPress={handlePress}>mtn faut coder lol</Text> */}
       {/* <StatusBar style="auto" /> */}
     </SafeAreaView>
@@ -45,19 +70,24 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
+    // flex: 1,
+    // display: 'flex',
+    // flexDirection: 'row',
     backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     //alignItems: 'center',
-    //justifyContent: 'center',
+    //justifyContent: 'space-between',
   },
   bandeSup: {
     backgroundColor: '#63003c',
     width: '100%',
-    height: '25%',
-    //flex: 1,
-    textAlign: 'center',
-    justifyContent: 'center'
+    height: '30%',
+    display: 'flex',
+    flexDirection: 'row',
+    // textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+
   },
   titre: {
     color: 'white',
@@ -66,12 +96,18 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   rubriques: {
+    
+    flex: 0.25,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#63003c',
+  
+  },
+  MainRubriques: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    textAlign: 'center',
-    borderRadius: 2,
-    borderColor: '#63003c'
+
   }
 
 });
