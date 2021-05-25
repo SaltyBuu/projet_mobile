@@ -5,6 +5,8 @@ import { Icon } from 'react-native-elements';
 import {MQTT }from 'sp-react-native-mqtt';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+import colors from '../config/colors';
+
 function GraphScreen(props) {
     const handlePress = () => console.log("text pressed");
     const orientation = useDeviceOrientation();
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
       //justifyContent: 'space-between',
     },
     bandeSup: {
-      backgroundColor: '#63003c',
+      backgroundColor: colors.primary,
       width: '100%',
       height: '30%',
       display: 'flex',
