@@ -56,8 +56,8 @@ function GraphScreen(props) {
           </View>
         </View>
       
-      {/* <Text numberOfLines={2} onPress={handlePress}>mtn faut coder lol</Text> */}
-      {/* <StatusBar style="auto" /> */}
+      {/* <Text numberOfLines={2} onPress={handlePress}>mtn faut coder lol</Text> 
+       <StatusBar style="auto" /> */}
     </SafeAreaView>
     );
 }
