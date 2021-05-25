@@ -4,15 +4,12 @@ import { useDeviceOrientation, useDimensions } from '@react-native-community/hoo
 import { Icon } from 'react-native-elements';
 import {MQTT }from 'sp-react-native-mqtt';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import graphScreen from './app/screens/graphScreen';
+import GraphScreen from './app/screens/GraphScreen';
 //import { Client, Message } from 'react-native-paho-mqtt';
 //import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function App() {
-  const handlePress = () => console.log("text pressed");
-  const orientation = useDeviceOrientation();
-  console.log(StatusBar.currentHeight);
-
+  
 
   // /* create mqtt client */
   // MQTT.createClient({
@@ -43,7 +40,7 @@ export default function App() {
   //   console.log(err);
   // });
 
-  return (<graphScreen />);
+  return <GraphScreen />;
 }
 
 

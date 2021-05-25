@@ -2,9 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableWithoutFeedback, ActivityIndicator, Platform } from 'react-native';
 import { useDeviceOrientation, useDimensions } from '@react-native-community/hooks';
 import { Icon } from 'react-native-elements';
+import {MQTT }from 'sp-react-native-mqtt';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-function graphScreen(props) {
-    
+function GraphScreen(props) {
+    const handlePress = () => console.log("text pressed");
+    const orientation = useDeviceOrientation();
+    console.log(StatusBar.currentHeight);
+
     return (
         <SafeAreaView style={styles.container}>
       <View style={styles.bandeSup}>
@@ -98,4 +103,5 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
   
     }});
-export default graphScreen;
+
+export default GraphScreen;
