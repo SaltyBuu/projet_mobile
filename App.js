@@ -38,10 +38,10 @@ init({
   });
   
   function onConnect() {
-    console.log("onConnect");
-    client.subscribe("data");
-    message = new Paho.MQTT.Message("Salut dev");
-    message.destinationName = "data";
+    console.log("onConnect c'est bon");
+    client.subscribe("mobiletr");
+    var message = new Paho.MQTT.Message("Salut dev");
+    message.destinationName = "mobiletr";
     client.send(message);
     console.log("Message sent");
   }
@@ -54,9 +54,10 @@ init({
   
   function onMessageArrived(message) {
     console.log("onMessageArrived:"+message.payloadString);
+    AsyncStorage.setItem
   }
   
-  const client = new Paho.MQTT.Client('localhost', 9001, 'clientId');
+  const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"bonninadmirator666");
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   client.connect({ onSuccess:onConnect});
