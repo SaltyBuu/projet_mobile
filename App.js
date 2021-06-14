@@ -24,8 +24,8 @@ import { createStackNavigator} from 'react-navigation-stack';
 import { Icon } from 'react-native-elements'; 
 import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarChart} from "react-native-chart-kit";
 import init from 'react_native_mqtt';
-import {AsyncStorage} from '@react-native-community/async-storage'
-
+//import {AsyncStorage} from '@react-native-community/async-storage'
+import {AsyncStorage} from 'react-native-async-storage';
 //Bail de MQTT
 init({
     size: 10000,
@@ -39,13 +39,14 @@ init({
   
   function onConnect() {
     console.log("onConnect");
-    client.subscribe("dev");
+    client.subscribe("data");
     message = new Paho.MQTT.Message("Salut dev");
-    message.destinationName = "dev";
+    message.destinationName = "data";
     client.send(message);
+    console.log("Message sent");
   }
   
-  function onConnectionLost(responseObject) {
+  function onConnectionLost(responseObject) {   
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:"+responseObject.errorMessage);
     }
@@ -55,7 +56,7 @@ init({
     console.log("onMessageArrived:"+message.payloadString);
   }
   
-  const client = new Paho.MQTT.Client('broker.mqttdashboard.com', 8000, 'clientId-1xRVqSmM7s');
+  const client = new Paho.MQTT.Client('localhost', 9001, 'clientId');
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   client.connect({ onSuccess:onConnect});
