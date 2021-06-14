@@ -57,7 +57,7 @@ init({
     AsyncStorage.setItem
   }
   
-  const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"bonninadmirator666");
+  const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   client.connect({ onSuccess:onConnect});
