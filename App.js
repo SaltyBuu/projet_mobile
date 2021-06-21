@@ -24,7 +24,6 @@ import { createStackNavigator} from 'react-navigation-stack';
 import { Icon } from 'react-native-elements'; 
 import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarChart} from "react-native-chart-kit";
 import init from 'react_native_mqtt';
-//import {AsyncStorage} from '@react-native-community/async-storage'
 import {AsyncStorage} from 'react-native-async-storage';
 //Bail de MQTT
 init({
@@ -35,13 +34,13 @@ init({
     reconnect: true,
     sync : {
     }
-  });
+  }); 
   
   function onConnect() {
     console.log("onConnect c'est bon");
-    client.subscribe("mobiletr");
+    client.subscribe("projtut");
     var message = new Paho.MQTT.Message("Salut dev");
-    message.destinationName = "mobiletr";
+    message.destinationName = "projtut";
     client.send(message);
     console.log("Message sent");
   }
@@ -54,9 +53,17 @@ init({
   
   function onMessageArrived(message) {
     console.log("onMessageArrived:"+message.payloadString);
-    AsyncStorage.setItem
+    
   }
-  
+
+  const storeData = async (key, value) => {
+    try {
+
+      await AsyncStorage.setItem('@storage_Key', value)
+    } catch (e) {
+      // saving error
+    }
+  }
   const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
