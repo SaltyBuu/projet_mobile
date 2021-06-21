@@ -26,48 +26,48 @@ import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarCh
 import init from 'react_native_mqtt';
 import {AsyncStorage} from 'react-native-async-storage';
 //Bail de MQTT
-init({
-    size: 10000,
-    storageBackend: AsyncStorage,
-    defaultExpires: 1000 * 3600 * 24,
-    enableCache: true,
-    reconnect: true,
-    sync : {
-    }
-  }); 
+// init({
+//     size: 10000,
+//     storageBackend: AsyncStorage,
+//     defaultExpires: 1000 * 3600 * 24,
+//     enableCache: true,
+//     reconnect: true,
+//     sync : {
+//     }
+//   }); 
   
-  function onConnect() {
-    console.log("onConnect c'est bon");
-    client.subscribe("projtut");
-    var message = new Paho.MQTT.Message("Salut dev");
-    message.destinationName = "projtut";
-    client.send(message);
-    console.log("Message sent");
-  }
+//   function onConnect() {
+//     console.log("onConnect c'est bon");
+//     client.subscribe("projtut");
+//     var message = new Paho.MQTT.Message("Salut dev");
+//     message.destinationName = "projtut";
+//     client.send(message);
+//     console.log("Message sent");
+//   }
   
-  function onConnectionLost(responseObject) {   
-    if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:"+responseObject.errorMessage);
-    }
-  }
+//   function onConnectionLost(responseObject) {   
+//     if (responseObject.errorCode !== 0) {
+//       console.log("onConnectionLost:"+responseObject.errorMessage);
+//     }
+//   }
   
-  function onMessageArrived(message) {
-    console.log("onMessageArrived:"+message.payloadString);
+//   function onMessageArrived(message) {
+//     console.log("onMessageArrived:"+message.payloadString);
     
-  }
+//   }
 
-  const storeData = async (key, value) => {
-    try {
+//   const storeData = async (key, value) => {
+//     try {
 
-      await AsyncStorage.setItem('@storage_Key', value)
-    } catch (e) {
-      // saving error
-    }
-  }
-  const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
-  client.onConnectionLost = onConnectionLost;
-  client.onMessageArrived = onMessageArrived;
-  client.connect({ onSuccess:onConnect});
+//       await AsyncStorage.setItem('@storage_Key', value)
+//     } catch (e) {
+//       // saving error
+//     }
+//   }
+//   const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
+//   client.onConnectionLost = onConnectionLost;
+//   client.onMessageArrived = onMessageArrived;
+//   client.connect({ onSuccess:onConnect});
 
 
 const styles = StyleSheet.create({
