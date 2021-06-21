@@ -1,5 +1,28 @@
+import mesuresJson from "./mesures.json"
 
 
+
+
+let nbMesures = () => {
+    return Object.keys(mesuresJson).length;
+};
+console.log("nbMesures = "+nbMesures);
+
+//'{\"id\":20,\"temperature\":40,\"Humidity\":35\}'
+function aleaTrame(){
+    var trame = '{\"id\":';
+    var id = Math.floor(Math.random() * 30);
+    var nbChamps = Math.floor(Math.random() * 4);
+    trame += id;
+    for(var i = 0;i < nbChamps;i++){
+        var aleaMesure = mesuresJson.mesures[Math.floor(Math.random() * nbMesures)];
+        var val = 0;
+        if (aleaMesure.data)
+        trame += 4;
+    }
+   
+
+}
 
 //Simulation de trames MQTT
 init({
@@ -11,14 +34,7 @@ init({
     sync : {
     }
   }); 
-//'{\"id\":20,\"temperature\":40,\"Humidity\":35\}'
-  function aleaTrame(){
-        var trame = '{\"id\":';
-        var id = Math.floor(Math.random() * 30);
-        trame += id + ','
 
-  }
-  
   function onConnect() {
     console.log("Connexion processus qui envoie les trames");
     client.subscribe("projtut");

@@ -1,163 +1,227 @@
 {
-    "Digital_Input":  {
-        "type":  "integer",
-        "min":  0,
-        "max":  1
+    "mesures": [{
+        "Digital_Input":  {
+            "type":  "integer",
+            "min":  0,
+            "max":  1
+            }
         },
-    "Digital_Output":  {
-        "type":  "integer",
-        "min":  0,
-        "max":  1
-    },
-    "Analog_Input":  {
-        "type":  "float",
-        "min":  0,
-        "max":  5
-    },
-    "Analog_Output":  {
-        "type":  "float",
-        "min":  0,
-        "max":  5
-    },
-    "Generic_Sensor":  {
-        "type":  "integer",
-        "min":  0,
-        "max":  10
-    },
-    "Illuminance":  {
-        "type":  "integer",
-        "min":  0,
-        "max":  500000
-    },
-    "Presence":  {
-        "type": "integer",
-        "min": 0,
-        "max": 10
-    },
-    "Temperature": {
-        "type": "float",
-        "min": -10,
-        "max": 50
-    },
-    "Humidity": {
-        "type": "float",
-        "min": 0,
-        "max": 100
-    },
-    "Powermeas": {
-        "type": "integer",
-        "min": 0,
-        "max": 5000
-    },
-    "Actuation": {
-        "type": "integer",
-        "min": 0,
-        "max": 1
-    },
-    "Set_Point": {
-        "type": "integer",
-        "min": 0,
-        "max": 10
-    },
-    "Load_Control": {
-        "type": "integer",
-        "min": 0,
-        "max": 1
-    },
-    "Light_Control": {
-        "type": "integer",
-        "min": 0,
-        "max": 1
-    },
-    "Power_Control": {
-        "type": "integer",
-        "min": 0,
-        "max": 1
-    },
-    "Accelerometer": {
-        "type": "float",
-        "min": -2,
-        "max": 2
-    },
-    "Magnetometer": {
-        "type": "integer",
-        "min": 0,
-        "max": 1000000
-    },
-    "Barometer": {
-        "type": "float",
-        "min": 0.1,
-        "max": 2
-    },
-    "Voltage": {
-        "type": "float",
-        "min": 0,
-        "max": 5
-    },
-    "Current": {
-        "type": "float",
-        "min": 0,
-        "max": 5
-    },
-    "Frequency": {
-        "type": "integer",
-        "min": 0,
-        "max": 1000000
-    },
-    "Depth": {
-        "type": "float",
-        "min": 0,
-        "max": 5
-    },
-    "Percentage": {
-        "type": "float",
-        "min": 0,
-        "max": 100
-    },
-    "Altitude": {
-        "type": "integer",
-        "min": 0,
-        "max": 5000
-    },
-    "Load": {
-        "type": "float",
-        "min": 0,
-        "max": 100
-    },
-    "Pressure": {
-        "type": "float",
-        "min": 0,
-        "max": 5
-    },
-    "Distance": {
-        "type": "float",
-        "min": 0,
-        "max": 10
-    },
-    "Energy": {
-        "type": "float",
-        "min": 0,
-        "max": 255
-    },
-    "Direction": {
-        "type": "float",
-        "min": 0,
-        "max": 360
-    },
-    "Gyrometer": {
-        "type": "float",
-        "min": 0,
-        "max": 100
-    },
-    "Colour": {
-        "type": "integer",
-        "min": 0,
-        "max": 2147483647
-    },
-    "Location": {
-        "type": "location",
-        "latitude": 48.70,
-        "longitude": 2.18,
-        "altitude": 72.10
-    }
+        {
+        "Digital_Output":  {
+            "type":  "integer",
+            "min":  0,
+            "max":  1
+            }
+        },
+        {
+        "Analog_Input":  {
+            "type":  "float",
+            "min":  0,
+            "max":  5
+            }
+        },
+        {
+        "Analog_Output":  {
+            "type":  "float",
+            "min":  0,
+            "max":  5
+            }   
+        },
+        {
+        "Generic_Sensor":  {
+            "type":  "integer",
+            "min":  0,
+            "max":  10
+            }
+        },
+        {
+        "Illuminance":  {
+            "type":  "integer",
+            "min":  0,
+            "max":  500000
+            }
+        },
+        {
+        "Presence":  {
+            "type": "integer",
+            "min": 0,
+            "max": 10
+            }
+        },
+        {
+        "Temperature": {
+            "type": "float",
+            "min": -10,
+            "max": 50
+            }
+        },
+        {
+        "Humidity": {
+            "type": "float",
+            "min": 0,
+            "max": 100
+            }
+        },
+        {
+        "Powermeas": {
+            "type": "integer",
+            "min": 0,
+            "max": 5000
+            }
+        },
+        {
+        "Actuation": {
+            "type": "integer",
+            "min": 0,
+            "max": 1
+            }
+        },
+        {
+        "Set_Point": {
+            "type": "integer",
+            "min": 0,
+            "max": 10
+            }
+        },
+        {
+        "Load_Control": {
+            "type": "integer",
+            "min": 0,
+            "max": 1
+            }
+        },
+        {
+        "Light_Control": {
+            "type": "integer",
+            "min": 0,
+            "max": 1
+            }
+        },
+        {
+        "Power_Control": {
+            "type": "integer",
+            "min": 0,
+            "max": 1
+            }
+        },
+        {
+        "Accelerometer": {
+            "type": "float",
+            "min": -2,
+            "max": 2
+            }
+        },
+        {
+        "Magnetometer": {
+            "type": "integer",
+            "min": 0,
+            "max": 1000000
+            }
+        },
+        {
+        "Barometer": {
+            "type": "float",
+            "min": 0.1,
+            "max": 2
+            }
+        },
+        {
+        "Voltage": {
+            "type": "float",
+            "min": 0,
+            "max": 5
+            }
+        },
+        {
+        "Current": {
+            "type": "float",
+            "min": 0,
+            "max": 5
+            }
+        },
+        {
+        "Frequency": {
+            "type": "integer",
+            "min": 0,
+            "max": 1000000
+            }
+        },
+        {
+        "Depth": {
+            "type": "float",
+            "min": 0,
+            "max": 5
+            }
+        },
+        {
+        "Percentage": {
+            "type": "float",
+            "min": 0,
+            "max": 100
+            }
+        },
+        {
+        "Altitude": {
+            "type": "integer",
+            "min": 0,
+            "max": 5000
+            }
+        },
+        {
+        "Load": {
+            "type": "float",
+            "min": 0,
+            "max": 100
+            }
+        },
+        {
+        "Pressure": {
+            "type": "float",
+            "min": 0,
+            "max": 5
+            }
+        },
+        {
+        "Distance": {
+            "type": "float",
+            "min": 0,
+            "max": 10
+            }
+        },
+        {
+        "Energy": {
+            "type": "float",
+            "min": 0,
+            "max": 255
+            }
+        },
+        {
+        "Direction": {
+            "type": "float",
+            "min": 0,
+            "max": 360
+            }
+        },
+        {
+        "Gyrometer": {
+            "type": "float",
+            "min": 0,
+            "max": 100
+            }
+        },
+        {
+        "Colour": {
+            "type": "integer",
+            "min": 0,
+            "max": 2147483647
+            }
+        },
+        {
+        "Location": {
+            "type": "location",
+            "latitude": 48.70,
+            "longitude": 2.18,
+            "altitude": 72.10
+            }
+        }]
 }
