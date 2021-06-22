@@ -3,9 +3,10 @@ import mesuresJson from "./mesures.json"
 const mesuresArray = [];
 Object.keys(mesuresJson.mesures).forEach(key =>
      mesuresArray.push({name: key, type: mesuresJson.mesures[key].type, min: mesuresJson.mesures[key].min, max: mesuresJson.mesures[key].max}));
+     console.log("Remplissage de l'array")
 
-mesuresArray.map(function(val, i) {console.log("mesuresArray[" + i +'] : name = '+val.name+', ' 
-+val.type + ', '+ val.min + ', '+val.max)});
+// mesuresArray.map(function(val, i) {console.log("mesuresArray[" + i +'] : name = '+val.name+', ' 
+// +val.type + ', '+ val.min + ', '+val.max)});
 
 let nbMesures = mesuresArray.length;
 console.log("nbMesures = "+nbMesures);

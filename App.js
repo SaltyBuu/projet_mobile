@@ -38,20 +38,21 @@ init({
   sync : {
   }
 }); 
+function sendrandomMQTT() {
+  console.log("Nouvelle trame")
+  var msg = aleaTrame();
+  var message = new Paho.MQTT.Message(msg);
+  message.destinationName = "projtut";
+  client.send(message);
+  console.log("Message sent : " + msg + " on " + new Date());
+}
 
 function onConnect() {
   console.log("Connexion processus qui envoie les trames");
   client.subscribe("projtut");
-  while(true){
-    setTimeout(() => {
-      console.log("Nouvelle trame")
-      var msg = aleaTrame();
-      var message = new Paho.MQTT.Message(msg);
-      message.destinationName = "projtut";
-      client.send(message);
-      console.log("Message sent : " + msg);
-    }, 5000);  
-  }
+  setInterval(() => {
+    sendrandomMQTT()
+  },5000);
 }
 
 function onConnectionLost(responseObject) {   
