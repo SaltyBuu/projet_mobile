@@ -42,11 +42,16 @@ init({
 function onConnect() {
   console.log("Connexion processus qui envoie les trames");
   client.subscribe("projtut");
-  var msg = aleaTrame();
-  var message = new Paho.MQTT.Message(msg);
-  message.destinationName = "projtut";
-  client.send(message);
-  console.log("Message sent : " + msg);
+  while(true){
+    setTimeout(() => {
+      console.log("Nouvelle trame")
+      var msg = aleaTrame();
+      var message = new Paho.MQTT.Message(msg);
+      message.destinationName = "projtut";
+      client.send(message);
+      console.log("Message sent : " + msg);
+    }, 5000);  
+  }
 }
 
 function onConnectionLost(responseObject) {   
