@@ -43,10 +43,10 @@ function onConnect() {
   console.log("Connexion processus qui envoie les trames");
   client.subscribe("projtut");
   var msg = aleaTrame();
-  var message = new Paho.MQTT.Message("Salut dev");
+  var message = new Paho.MQTT.Message(msg);
   message.destinationName = "projtut";
   client.send(message);
-  console.log("Message sent");
+  console.log("Message sent : " + msg);
 }
 
 function onConnectionLost(responseObject) {   
