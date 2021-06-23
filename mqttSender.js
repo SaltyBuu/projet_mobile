@@ -1,15 +1,21 @@
 import mesuresJson from "./mesures.json"
 
-const mesuresArray = [];
-Object.keys(mesuresJson.mesures).forEach(key =>
-     mesuresArray.push({name: key, type: mesuresJson.mesures[key].type, min: mesuresJson.mesures[key].min, max: mesuresJson.mesures[key].max}));
-     console.log("Remplissage de l'array")
+
+export function getmesuresTab() {
+    const returnedTab = [];
+    Object.keys(mesuresJson.mesures).forEach(key =>
+        returnedTab.push({name: key, type: mesuresJson.mesures[key].type, min: mesuresJson.mesures[key].min, max: mesuresJson.mesures[key].max}));
+    console.log("Remplissage de l'array");
+    return returnedTab;
+}
+
 
 // mesuresArray.map(function(val, i) {console.log("mesuresArray[" + i +'] : name = '+val.name+', ' 
 // +val.type + ', '+ val.min + ', '+val.max)});
-
+let mesuresArray = getmesuresTab();
 let nbMesures = mesuresArray.length;
 console.log("nbMesures = "+nbMesures);
+
 
 //'{\"id\":20,\"temperature\":40,\"Humidity\":35\}'
 export function aleaTrame(){

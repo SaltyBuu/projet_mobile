@@ -26,18 +26,24 @@ import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarCh
 import init from 'react_native_mqtt';
 import {AsyncStorage} from 'react-native-async-storage';
 
-import { aleaTrame } from './mqttSender'
+import { aleaTrame, getmesuresTab } from './mqttSender'
+import mesuresJson from "./mesures.json"
 //Bail de MQTT
 //Simulation de trames MQTT
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  reconnect: true,
-  sync : {
-  }
-}); 
+// init({
+//   size: 10000,
+//   storageBackend: AsyncStorage,
+//   defaultExpires: 1000 * 3600 * 24,
+//   enableCache: true,
+//   reconnect: true,
+//   sync : {
+//   }
+// }); 
+//
+
+const mesuresTab = getmesuresTab();
+let captValues = {};
+
 function sendrandomMQTT() {
   console.log("Nouvelle trame")
   var msg = aleaTrame();
@@ -50,9 +56,10 @@ function sendrandomMQTT() {
 function onConnect() {
   console.log("Connexion processus qui envoie les trames");
   client.subscribe("projtut");
+  sendrandomMQTT()
   setInterval(() => {
     sendrandomMQTT()
-  },5000);
+  },5000000);
 }
 
 function onConnectionLost(responseObject) {   
@@ -60,24 +67,59 @@ function onConnectionLost(responseObject) {
     console.log("onConnectionLost:"+responseObject.errorMessage);
   }
 }
-
+// {"id":17,"Analog_Input":4,"Generic_Sensor":4}
 function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
+  console.log("Trame reçue: "+message.payloadString);
+  
+  var splitArray= String(message.payloadString).split(',');
+  console.log("Split array : " + splitArray);
+  console.log("Split array length : "+ splitArray.length)
+
+  for(var i = 1; i < splitArray.length;i++){
+    var capteur = splitArray[i].split(':');
+    var mesure = capteur[0].replaceAll('"',"");
+    if(captValues.mesure == undefined){
+      captValues[mesure]={
+        type: mesuresJson.mesures[mesure].type,
+        valeurs: [parseInt(capteur[1])]
+      }
+    }
+    else{
+      captValues.mesure.valeurs.push(parseInt(capteur[1]));
+    }    
+    console.log(captValues);
+    console.log("---------------------------------------------------------");
+    console.log(JSON.stringify(captValues,null,2));
+}
+
+  // jsobject['Pressure'] = {
+  //   type: "Pascal",
+  //   valeurs: [45,12.6,25.9,63,235]
+  // };
+  // var i = "Illuminance";
+
+  // console.log("test - " +i+" : "+ jsobject[i].type + " " + jsobject[i].valeurs);
+  // i = "Pressure";
+  // console.log("test - " +i+" : "+ jsobject[i].type + " " + jsobject[i].valeurs);
+
+
+  
+  //on récupère mesure et valeur dans la trame, type grâce au json et on crée objet js {
+  //  "Capteur x" {
+  //    type: t,
+  //    valeurs: [10,5,4,8,9,325,1275,23.5]   
+  //  }
+  //} 
+  //
+
   
 }
 
-const storeData = async (key, value) => {
-  try {
-
-    await AsyncStorage.setItem('@storage_Key', value)
-  } catch (e) {
-    // saving error
-  }
-}
 const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
 client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
 client.connect({ onSuccess:onConnect});
+
 
 const styles = StyleSheet.create({
 
