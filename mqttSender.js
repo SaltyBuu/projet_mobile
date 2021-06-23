@@ -5,7 +5,7 @@ export function getmesuresTab() {
     const returnedTab = [];
     Object.keys(mesuresJson.mesures).forEach(key =>
         returnedTab.push({name: key, type: mesuresJson.mesures[key].type, min: mesuresJson.mesures[key].min, max: mesuresJson.mesures[key].max}));
-    console.log("Remplissage de l'array");
+    //console.log("Remplissage de l'array");
     return returnedTab;
 }
 
@@ -21,9 +21,9 @@ console.log("nbMesures = "+nbMesures);
 export function aleaTrame(){
     var trame = '{\"id\":';
     var id = Math.floor(Math.random() * 30+1);
-    console.log('Id = ' +  id);
+    //console.log('Id = ' +  id);
     var nbChamps = Math.floor(Math.random() * 4+1);
-    console.log("NbChamps = " + nbChamps);
+    //console.log("NbChamps = " + nbChamps);
     trame += id;
 
     for(var i = 0;i < nbChamps;i++){
@@ -32,12 +32,14 @@ export function aleaTrame(){
         var val = 0;
         if (aleaMesure.type != "location") {
             val = Math.floor(Math.random() * (aleaMesure.max - aleaMesure.min) + aleaMesure.min);
-            console.log("Val = " + val);
+            var t = aleaMesure.max - aleaMesure.min;
+            console.log("max - min = " + t);
         }
+        else val = 48.70;
         trame += ',\"' + aleaMesure.name + '\":' + val;
     }
     trame += '\}';
-    console.log("Trame = "+trame);
+    //console.log("Trame simulée = "+trame);
     return trame
 
 }

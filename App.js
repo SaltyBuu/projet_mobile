@@ -30,22 +30,30 @@ import { aleaTrame, getmesuresTab } from './mqttSender'
 import mesuresJson from "./mesures.json"
 //Bail de MQTT
 //Simulation de trames MQTT
-// init({
-//   size: 10000,
-//   storageBackend: AsyncStorage,
-//   defaultExpires: 1000 * 3600 * 24,
-//   enableCache: true,
-//   reconnect: true,
-//   sync : {
-//   }
-// }); 
-//
+
+
+  const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
+  client.onConnectionLost = onConnectionLost;
+  client.onMessageArrived = onMessageArrived;
+  client.connect({ onSuccess:onConnect});
+
+
+init({
+  size: 10000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  reconnect: true,
+  sync : {
+  }
+}); 
+
 
 const mesuresTab = getmesuresTab();
 let captValues = {};
 
 function sendrandomMQTT() {
-  console.log("Nouvelle trame")
+  //console.log("Nouvelle trame")
   var msg = aleaTrame();
   var message = new Paho.MQTT.Message(msg);
   message.destinationName = "projtut";
@@ -56,10 +64,10 @@ function sendrandomMQTT() {
 function onConnect() {
   console.log("Connexion processus qui envoie les trames");
   client.subscribe("projtut");
-  sendrandomMQTT()
-  setInterval(() => {
-    sendrandomMQTT()
-  },5000000);
+  // sendrandomMQTT()
+  // setInterval(() => {
+  //   sendrandomMQTT()
+  // },5000);
 }
 
 function onConnectionLost(responseObject) {   
@@ -78,18 +86,20 @@ function onMessageArrived(message) {
   for(var i = 1; i < splitArray.length;i++){
     var capteur = splitArray[i].split(':');
     var mesure = capteur[0].replaceAll('"',"");
-    if(captValues.mesure == undefined){
+    console.log("Check mesure (if undefined) : "+captValues[mesure]);
+    if(captValues[mesure] == undefined){
       captValues[mesure]={
         type: mesuresJson.mesures[mesure].type,
         valeurs: [parseInt(capteur[1])]
       }
     }
     else{
-      captValues.mesure.valeurs.push(parseInt(capteur[1]));
+      console.log("Array de valeurs avant ajout : " + captValues[mesure].valeurs);
+      captValues[mesure].valeurs.push(parseInt(capteur[1]));
+      console.log("Array de valeurs après ajout : " + captValues[mesure].valeurs);
+
     }    
-    console.log(captValues);
-    console.log("---------------------------------------------------------");
-    console.log(JSON.stringify(captValues,null,2));
+  }
 }
 
   // jsobject['Pressure'] = {
@@ -113,14 +123,6 @@ function onMessageArrived(message) {
   //
 
   
-}
-
-const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
-client.connect({ onSuccess:onConnect});
-
-
 const styles = StyleSheet.create({
 
     //Thibault
@@ -250,7 +252,14 @@ class HomeScreen extends React.Component {
                     title="A propos"  
                     onPress={() => this.props.navigation.navigate('Apropos')}  
                 /> 
+                
+                <Text>  </Text>  
+                <Button  
+                    title="Bouton de log"  
+                    onPress={() => {console.log(captValues);}} 
+                /> 
                 </View> 
+
             </View>  
         );  
     }  
