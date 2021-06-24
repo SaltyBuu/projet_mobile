@@ -17,7 +17,8 @@ import {
     Plateform,
     ImagePickerIOS, 
     ImageStore,
-    Dimensions
+    Dimensions,
+    Alert
   } from 'react-native';
 import { createAppContainer } from 'react-navigation';  
 import { createStackNavigator} from 'react-navigation-stack';
@@ -26,101 +27,99 @@ import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarCh
 import init from 'react_native_mqtt';
 import {AsyncStorage} from 'react-native-async-storage';
 
+//Imports des fichiers locaux pour la gestion MQTT
 import { aleaTrame, getmesuresTab } from './mqttSender'
 import mesuresJson from "./mesures.json"
 //Bail de MQTT
 //Simulation de trames MQTT
 
-
+//Déclaration d'un client MQTT et des méthodes à appeler selon les événements
   const client = new Paho.MQTT.Client("broker.mqttdashboard.com",8000,"randomAledMobiletr");
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   client.connect({ onSuccess:onConnect});
 
+//Code pour le stockage des données qui accompagne les méthodes MQTT, il ne sert pas ici
+// init({
+//   size: 10000,
+//   storageBackend: AsyncStorage,
+//   defaultExpires: 1000 * 3600 * 24,
+//   enableCache: true,
+//   reconnect: true,
+//   sync : {
+//   }
+// }); 
 
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  reconnect: true,
-  sync : {
-  }
-}); 
-
-
+//On récupère les infos des mesures à partir de mesures.json
 const mesuresTab = getmesuresTab();
+//Initialisation de l'objet qui va stocker les trames entrantes
 let captValues = {};
 
+//fonction d'envoi d'une trame MQTT simulée
 function sendrandomMQTT() {
-  //console.log("Nouvelle trame")
+  //Création de la trame aléatoire
   var msg = aleaTrame();
   var message = new Paho.MQTT.Message(msg);
+  //topic de destination
   message.destinationName = "projtut";
+  //Envoi du message
   client.send(message);
-  console.log("Message sent : " + msg + " on " + new Date());
 }
 
+//Fonction appelée lors d'une connexion réussie au broker
 function onConnect() {
-  console.log("Connexion processus qui envoie les trames");
-  client.subscribe("projtut");
-  // sendrandomMQTT()
-  // setInterval(() => {
-  //   sendrandomMQTT()
-  // },5000);
+  //abonnement au topic
+  client.subscribe("data");
+  //Envoi d'une trame MQTT aléatoire toutes les minutes
+  sendrandomMQTT()
+  setInterval(() => {
+    sendrandomMQTT()
+  },1000*60);
 }
 
+//Traitement des pertes de connexion au broker
 function onConnectionLost(responseObject) {   
   if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
+    Alert.alert("onConnectionLost:"+responseObject.errorMessage);
   }
 }
-// {"id":17,"Analog_Input":4,"Generic_Sensor":4}
-function onMessageArrived(message) {
-  console.log("Trame reçue: "+message.payloadString);
-  
-  var splitArray= String(message.payloadString).split(',');
-  console.log("Split array : " + splitArray);
-  console.log("Split array length : "+ splitArray.length)
 
+//on récupère mesure et valeur dans la trame, type grâce au json et on crée un objet js
+function onMessageArrived(message) {
+  //Découpage de la trame selon les virgules
+  var splitArray= String(message.payloadString).split(',');
+  
   for(var i = 1; i < splitArray.length;i++){
+    //Pour chaque champ, extraction de la valeur et du nom de la mesure
     var capteur = splitArray[i].split(':');
     var mesure = capteur[0].replaceAll('"',"");
-    console.log("Check mesure (if undefined) : "+captValues[mesure]);
+
+    //Si la mesure a déjà été envoyée, on ajoute la valeur au tableau de valeurs correspondant
     if(captValues[mesure] == undefined){
       captValues[mesure]={
         type: mesuresJson.mesures[mesure].type,
+        //Conversion string en int et ajout dans le tableau de valeurs
         valeurs: [parseInt(capteur[1])]
       }
     }
     else{
-      console.log("Array de valeurs avant ajout : " + captValues[mesure].valeurs);
+      //Si la mesure est nouvelle on crée l'objet correspondant
       captValues[mesure].valeurs.push(parseInt(capteur[1]));
-      console.log("Array de valeurs après ajout : " + captValues[mesure].valeurs);
-
     }    
+    //L'objet ressemble à :
+    //{
+    //  "Capteur x" {
+    //    type: t,
+    //    valeurs: [10,5,4,8,9,325,1275,23.5]   
+    //  },
+    //  ...
+    //} 
+    //
   }
 }
-
-  // jsobject['Pressure'] = {
-  //   type: "Pascal",
-  //   valeurs: [45,12.6,25.9,63,235]
-  // };
-  // var i = "Illuminance";
-
-  // console.log("test - " +i+" : "+ jsobject[i].type + " " + jsobject[i].valeurs);
-  // i = "Pressure";
-  // console.log("test - " +i+" : "+ jsobject[i].type + " " + jsobject[i].valeurs);
-
-
   
-  //on récupère mesure et valeur dans la trame, type grâce au json et on crée objet js {
-  //  "Capteur x" {
-  //    type: t,
-  //    valeurs: [10,5,4,8,9,325,1275,23.5]   
-  //  }
-  //} 
-  //
+   
+
 
   
 const styles = StyleSheet.create({
